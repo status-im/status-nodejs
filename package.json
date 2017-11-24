@@ -1,7 +1,7 @@
 {
   "name": "status-nodejs",
   "version": "1.0.0",
-  "description": "This package provides a wrappers to [status-go](https://github.com/status-im/status-go)  exported methods.",
+  "description": "This package provides wrappers to [status-go](https://github.com/status-im/status-go) exported methods.",
   "main": "index.js",
   "gypfile": true,
   "dependencies": {},

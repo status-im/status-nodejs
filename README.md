@@ -1,6 +1,6 @@
 # status-nodejs
 
-This package bundles [status-go](https://github.com/status-im/status-go) in an easy to consume nodejs package and exports a Web3.js provider.
+This package provides wrappers to [status-go](https://github.com/status-im/status-go) exported methods.
 
 # Usage
 
