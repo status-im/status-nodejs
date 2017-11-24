@@ -565,43 +565,6 @@ void _InitJail(const FunctionCallbackInfo<Value>& args) {
 	
 }
 
-void _Parse(const FunctionCallbackInfo<Value>& args) {
-	Isolate* isolate = args.GetIsolate();
-
-	if (args.Length() != 2) {
-		// Throw an Error that is passed back to JavaScript
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong number of arguments for Parse")));
-		return;
-	}
-
-	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong argument type for 'chatID'")));
-		return;
-	}
-	if (!args[1]->IsString()) { 
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong argument type for 'js'")));
-		return;
-	}
-
-	
-	String::Utf8Value arg0Obj(args[0]->ToString());
-	char *arg0 = *arg0Obj;
-	String::Utf8Value arg1Obj(args[1]->ToString());
-	char *arg1 = *arg1Obj;
-
-	// Call exported Go function, which returns a C string
-	char *c = Parse(arg0, arg1);
-
-	Local<String> ret = String::NewFromUtf8(isolate, c);
-	args.GetReturnValue().Set(ret);
-	delete c;
-}
-
 void _CreateAndInitCell(const FunctionCallbackInfo<Value>& args) {
 	Isolate* isolate = args.GetIsolate();
 
@@ -895,7 +858,6 @@ void init(Local<Object> exports) {
 	NODE_SET_METHOD(exports, "DiscardTransaction", _DiscardTransaction);
 	NODE_SET_METHOD(exports, "DiscardTransactions", _DiscardTransactions);
 	NODE_SET_METHOD(exports, "InitJail", _InitJail);
-	NODE_SET_METHOD(exports, "Parse", _Parse);
 	NODE_SET_METHOD(exports, "CreateAndInitCell", _CreateAndInitCell);
 	NODE_SET_METHOD(exports, "ExecuteJS", _ExecuteJS);
 	NODE_SET_METHOD(exports, "Call", _Call);
