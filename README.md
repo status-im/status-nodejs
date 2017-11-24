@@ -36,3 +36,20 @@ You should have resulting module in `build/Release` folder.
 # Package module
 
 TBD
+
+# Autogenerate bindings from Go code
+
+It's possible to autogenerate C++ code from status-go Go code. First, build autogenerator tool:
+
+```
+go build ./tools/go2nodebinding
+```
+
+then, run it:
+
+```
+./go2nodebinding ../status-go/lib/library.go > src/status.cpp
+```
+
+
+check the diff and commit.

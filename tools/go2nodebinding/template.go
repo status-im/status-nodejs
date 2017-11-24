@@ -78,9 +78,6 @@ void _{{.Name}}(const FunctionCallbackInfo<Value>& args) {
 	{{if eq .ReturnsCount 1}}Local<String> ret = String::NewFromUtf8(isolate, c);
 	args.GetReturnValue().Set(ret);
 	delete c;{{end}}
-
-	{{range $index, $arg := .Params}}{{if eq .Type "*C.char"}}delete arg{{$index}};
-	{{end}}{{end}}
 }
 `))
 
