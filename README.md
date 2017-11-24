@@ -20,10 +20,9 @@ ranlib build/bin/libstatus-darwin-10.6-amd64.a
 Resulting shared library file and header will be at `build/bin/libstatus-darwin-10.6-amd64.a` and `build/bin/libstatus-darwin-10.6-amd64.h` accordingly. Copy them into `status-nodejs/bin/` folder:
 
 ```
-cd status-nodejs
 mkdir -p status-nodejs/bin/
 cp -v status-go/build/bin/libstatus-darwin-10.6-amd64.a status-nodejs/bin/libstatus.a
-cp -v status-go/build/bin/libstatus-darwin-10.6-amd64.h status-nodejs/bin/libstatus.g
+cp -v status-go/build/bin/libstatus-darwin-10.6-amd64.h status-nodejs/bin/libstatus.h
 ```
 
 Next, go to `status-nodejs` dir, and run:
