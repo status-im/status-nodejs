@@ -18,7 +18,9 @@ export GOPATH=$HOME/go
 mkdir -p $GOPATH/src/github.com/status-im
 pushd $GOPATH/src/github.com/status-im
 git clone --depth=1 https://github.com/status-im/status-go.git -b develop
+pushd status-go
 make statusgo-library
+popd
 popd
 
 cp $GOPATH/src/github.com/status-im/status-go/build/bin/libstatus.* ./bin
