@@ -12,6 +12,6 @@ elif [[ $TRAVIS_OS_NAME == 'linux' ]]; then
 
 fi
 
-export PATH=$PATH:/usr/local/go/bin
+export PATH=/usr/local/go/bin:$PATH
 export GOPATH=$HOME/go
 go version
