@@ -20,6 +20,7 @@ mkdir -p $GOPATH/src/github.com/status-im
 pushd $GOPATH/src/github.com/status-im
 git clone --depth=1 https://github.com/status-im/status-go.git -b develop
 pushd status-go
+mkdir -p ./build/bin
 make statusgo-library
 popd
 popd
