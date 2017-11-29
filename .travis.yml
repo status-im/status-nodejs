@@ -1,6 +1,9 @@
-os:
-  - linux
-  - osx
+matrix:
+  include:
+    - os: linux
+      sudo: required
+    - os: osx
+      sudo: required
 
 language: node_js
 
