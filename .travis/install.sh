@@ -14,4 +14,12 @@ fi
 
 export PATH=/usr/local/go/bin:$PATH
 export GOPATH=$HOME/go
-go version
+
+mkdir -p $GOPATH/src/github.com/status-im
+pushd $GOPATH/src/github.com/status-im
+git checkout --depth=1 git@github.com:status-im/status-go.git
+make statusgo-library
+popd
+
+cp $GOPATH/src/github.com/status-im/status-go/build/bin/libstatus.* ./bin
+npm run build

@@ -3,7 +3,6 @@ matrix:
     - os: linux
       sudo: required
     - os: osx
-      sudo: required
 
 language: node_js
 
@@ -12,3 +11,4 @@ node_js:
 
 install:
   - ./.travis/install.sh
+  - npm install
