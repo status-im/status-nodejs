@@ -12,15 +12,15 @@ elif [[ $TRAVIS_OS_NAME == 'linux' ]]; then
 
 fi
 
-export PATH=/usr/local/go/bin:$PATH
+export GOROOT=/usr/local/go
+export PATH=$GOROOT/bin:$PATH
 export GOPATH=$HOME/go
 
 mkdir -p $GOPATH/src/github.com/status-im
 pushd $GOPATH/src/github.com/status-im
 git clone --depth=1 https://github.com/status-im/status-go.git -b develop
 pushd status-go
-# make statusgo-library
-go build -v -buildmode=c-archive -o build/bin/libstatus.a ./lib
+make statusgo-library
 popd
 popd
 
