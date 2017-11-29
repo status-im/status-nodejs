@@ -26,4 +26,3 @@ popd
 popd
 
 cp $GOPATH/src/github.com/status-im/status-go/build/bin/libstatus.* ./bin
-npm run build
