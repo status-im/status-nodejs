@@ -1,0 +1,18 @@
+notifications:
+  email: false
+
+matrix:
+  include:
+    - os: linux
+      sudo: required
+    - os: osx
+
+language: node_js
+
+node_js:
+  - "7.9.0"  # Current stable Electron version
+
+install:
+  - ./.travis/install.sh
+  - npm install
+  - npm run rebuild
