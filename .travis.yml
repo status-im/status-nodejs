@@ -10,7 +10,7 @@ matrix:
 language: node_js
 
 node_js:
-  - "v7.9.0"  # Current stable Electron version
+  - "7.9.0"  # Current stable Electron version
 
 install:
   - ./.travis/install.sh
