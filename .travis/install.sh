@@ -21,7 +21,10 @@ pushd $GOPATH/src/github.com/status-im
 git clone --depth=1 https://github.com/status-im/status-go.git -b develop
 pushd status-go
 mkdir -p ./build/bin
-make statusgo-library
+# disable make until warnings will be resolved when rebuilding with npm
+# make statusgo-library
+CGO_FLAGS=-mmacosx-version-min=10.7 CGO_LDFLAGS=-mmacosx-version-min=10.7 \
+    go build -ldflags -v -buildmode=c-archive -o build/bin/libstatus.a ./lib
 popd
 popd
 
