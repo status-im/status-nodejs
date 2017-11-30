@@ -23,8 +23,14 @@ pushd status-go
 mkdir -p ./build/bin
 # disable make until warnings will be resolved when rebuilding with npm
 # make statusgo-library
-CGO_FLAGS=-mmacosx-version-min=10.7 CGO_LDFLAGS=-mmacosx-version-min=10.7 \
+
+if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
+    CGO_FLAGS=-mmacosx-version-min=10.7 CGO_LDFLAGS=-mmacosx-version-min=10.7 \
+        go build -ldflags -v -buildmode=c-archive -o build/bin/libstatus.a ./lib
+elif [[ $TRAVIS_OS_NAME == 'linux' ]]; then
     go build -ldflags -v -buildmode=c-archive -o build/bin/libstatus.a ./lib
+fi
+
 popd
 popd
 
