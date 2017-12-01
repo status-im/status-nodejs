@@ -3,3 +3,4 @@ bin/*
 !bin/.gitkeep
 build/
 go2nodebinding
+lib/

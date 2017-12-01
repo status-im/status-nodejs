@@ -15,4 +15,5 @@ node_js:
 install:
   - ./.travis/install.sh
   - npm install
-  - npm run rebuild
+  - npm run configure
+  - npm run build
