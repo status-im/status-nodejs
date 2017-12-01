@@ -28,12 +28,10 @@ using v8::Value;
 
 var footerTemplate = template.Must(template.New("footer").Parse(`
 void init(Local<Object> exports) {
-	{{range $index, $func := .}}NODE_SET_METHOD(exports, "{{.Name}}", _{{.Name}});
-	{{end}}
+	{{range $index, $func := .}}NODE_SET_METHOD(exports, "{{.Name}}", _{{.Name}});{{end}}
 }
 
 NODE_MODULE(status_nodejs_addon, init)
-
 }  // namespace status
 `))
 
@@ -61,16 +59,22 @@ void _{{.Name}}(const FunctionCallbackInfo<Value>& args) {
 
 	// Check the argument types
 	{{range $index, $arg := .Params}}
-	{{if eq .Type "*C.char"}}if (!args[{{$index}}]->IsString()) { {{end}}{{if eq .Type "C.int"}}if (!args[{{$index}}]->IsNumber()) { {{end}}
+	{{- if eq .Type "*C.char" -}}if (!args[{{$index}}]->IsString()) { {{- end}}
+	{{- if eq .Type "C.int" -}}if (!args[{{$index}}]->IsNumber()) { {{- end}}
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for '{{.Name}}'")));
 		return;
-	}{{end}}
+	}
+	{{end}}
 
-	{{range $index, $arg := .Params}}{{if eq .Type "*C.char"}}
+	{{range $index, $arg := .Params}}
+	{{- if eq .Type "*C.char" -}}
 	String::Utf8Value arg{{$index}}Obj(args[{{$index}}]->ToString());
-	char *arg{{$index}} = *arg{{$index}}Obj;{{end}}{{if eq .Type "C.int"}}
-	int arg{{$index}} = args[{{$index}}]->Int32Value();{{end}}{{end}}
+	char *arg{{$index}} = *arg{{$index}}Obj;
+	{{- else if eq .Type "C.int" -}}
+	int arg{{$index}} = args[{{$index}}]->Int32Value();
+	{{- end}}
+	{{end}}
 
 	// Call exported Go function, which returns a C string
 	{{if eq .ReturnsCount 1}}char *c = {{end}}{{.Name}}({{range $index, $arg := .Params}}{{if $index}}, {{end}}arg{{$index}}{{end}});
