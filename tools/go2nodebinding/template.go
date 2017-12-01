@@ -32,7 +32,7 @@ void init(Local<Object> exports) {
 	{{end}}
 }
 
-NODE_MODULE(NODE_GYP_MODULE_NAME, init)
+NODE_MODULE(status_nodejs_addon, init)
 
 }  // namespace status
 `))

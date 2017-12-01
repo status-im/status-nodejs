@@ -1,38 +1,27 @@
-# status-nodejs
+status-nodejs
+=============
 
-This package provides wrappers to [status-go](https://github.com/status-im/status-go) exported methods.
+**This project is in pre-alpha version!**
 
-# Usage
+This package provides wrappers to [status-go](https://github.com/status-im/status-go) bindings.
 
-First, make sure that `status-go` and `status-nodejs` are in the same dir.
+## Instalation
 
-In `status-go`, build static library:
+Only manual installation from the repository.
 
-```make statusgo-shared```
+## Development
 
-Resulting static library file (in C archive format) and header will be at `build/bin/libstatus.a` and `build/bin/libstatus.h` accordingly. Copy them into `status-nodejs/bin/` folder:
+First, you need to get `libstatus.a`:
 
-```
-mkdir -p status-nodejs/bin/
-cp -v status-go/build/bin/libstatus.a status-nodejs/bin/libstatus.a
-cp -v status-go/build/bin/libstatus.h status-nodejs/bin/libstatus.h
-```
+1. Clone [status-go](github.com/status-im/status-go) repository into proper directory in `$GOPATH`,
+2. Run `make statusgo-library`,
+3. Copy `libstatus.a` and `libstatus.h` from `/path/to/status-go/build/bin/` to `./bin/`.
 
-Next, go to `status-nodejs` dir, and run:
+Next, run `npm install` to build a node.js addon. After that, you should be able to successfully run tests `npm test`.
 
-```
-npm install
-```
+## Autogenerate bindings from Go code
 
-You should have resulting module in `build/Release` folder.
-
-# Package module
-
-TBD
-
-# Autogenerate bindings from Go code
-
-It's possible to autogenerate C++ code from status-go Go code. First, build autogenerator tool:
+It's possible to autogenerate C++ code from status-go bindings. First, build autogenerator tool:
 
 ```
 go build ./tools/go2nodebinding
@@ -41,8 +30,9 @@ go build ./tools/go2nodebinding
 then, run it:
 
 ```
-./go2nodebinding ../status-go/lib/library.go > src/status.cpp
+./go2nodebinding /path/to/status-go/lib/library.go > ./src/status.cpp
 ```
 
+## License
 
-check the diff and commit.
+[Mozilla Public License 2.0](https://github.com/status-im/status-go/blob/develop/LICENSE.md).

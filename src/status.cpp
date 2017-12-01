@@ -28,24 +28,24 @@ void _GenerateConfig(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'datadir'")));
 		return;
 	}
-	if (!args[1]->IsNumber()) { 
+	if (!args[1]->IsNumber()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'networkID'")));
 		return;
 	}
-	if (!args[2]->IsNumber()) { 
+	if (!args[2]->IsNumber()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'devMode'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 	int arg1 = args[1]->Int32Value();
@@ -70,14 +70,14 @@ void _StartNode(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'configJSON'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 
@@ -100,9 +100,9 @@ void _StopNode(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
 
-	
+
+
 
 	// Call exported Go function, which returns a C string
 	char *c = StopNode();
@@ -123,14 +123,14 @@ void _ValidateNodeConfig(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'configJSON'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 
@@ -153,9 +153,9 @@ void _ResetChainData(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
 
-	
+
+
 
 	// Call exported Go function, which returns a C string
 	char *c = ResetChainData();
@@ -176,14 +176,14 @@ void _CallRPC(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'inputJSON'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 
@@ -206,14 +206,14 @@ void _CreateAccount(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'password'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 
@@ -236,19 +236,19 @@ void _CreateChildAccount(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'parentAddress'")));
 		return;
 	}
-	if (!args[1]->IsString()) { 
+	if (!args[1]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'password'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 	String::Utf8Value arg1Obj(args[1]->ToString());
@@ -273,19 +273,19 @@ void _RecoverAccount(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'password'")));
 		return;
 	}
-	if (!args[1]->IsString()) { 
+	if (!args[1]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'mnemonic'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 	String::Utf8Value arg1Obj(args[1]->ToString());
@@ -310,24 +310,24 @@ void _VerifyAccountPassword(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'keyStoreDir'")));
 		return;
 	}
-	if (!args[1]->IsString()) { 
+	if (!args[1]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'address'")));
 		return;
 	}
-	if (!args[2]->IsString()) { 
+	if (!args[2]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'password'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 	String::Utf8Value arg1Obj(args[1]->ToString());
@@ -354,19 +354,19 @@ void _Login(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'address'")));
 		return;
 	}
-	if (!args[1]->IsString()) { 
+	if (!args[1]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'password'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 	String::Utf8Value arg1Obj(args[1]->ToString());
@@ -391,9 +391,9 @@ void _Logout(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
 
-	
+
+
 
 	// Call exported Go function, which returns a C string
 	char *c = Logout();
@@ -414,19 +414,19 @@ void _CompleteTransaction(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'id'")));
 		return;
 	}
-	if (!args[1]->IsString()) { 
+	if (!args[1]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'password'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 	String::Utf8Value arg1Obj(args[1]->ToString());
@@ -451,19 +451,19 @@ void _CompleteTransactions(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'ids'")));
 		return;
 	}
-	if (!args[1]->IsString()) { 
+	if (!args[1]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'password'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 	String::Utf8Value arg1Obj(args[1]->ToString());
@@ -488,14 +488,14 @@ void _DiscardTransaction(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'id'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 
@@ -518,14 +518,14 @@ void _DiscardTransactions(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'ids'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 
@@ -548,21 +548,21 @@ void _InitJail(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'js'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 
 	// Call exported Go function, which returns a C string
 	InitJail(arg0);
 
-	
+
 }
 
 void _CreateAndInitCell(const FunctionCallbackInfo<Value>& args) {
@@ -576,19 +576,19 @@ void _CreateAndInitCell(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'chatID'")));
 		return;
 	}
-	if (!args[1]->IsString()) { 
+	if (!args[1]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'js'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 	String::Utf8Value arg1Obj(args[1]->ToString());
@@ -613,19 +613,19 @@ void _ExecuteJS(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'chatID'")));
 		return;
 	}
-	if (!args[1]->IsString()) { 
+	if (!args[1]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'code'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 	String::Utf8Value arg1Obj(args[1]->ToString());
@@ -650,24 +650,24 @@ void _Call(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'chatID'")));
 		return;
 	}
-	if (!args[1]->IsString()) { 
+	if (!args[1]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'path'")));
 		return;
 	}
-	if (!args[2]->IsString()) { 
+	if (!args[2]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'params'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 	String::Utf8Value arg1Obj(args[1]->ToString());
@@ -694,14 +694,14 @@ void _StartCPUProfile(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'dataDir'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 
@@ -724,9 +724,9 @@ void _StopCPUProfiling(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
 
-	
+
+
 
 	// Call exported Go function, which returns a C string
 	char *c = StopCPUProfiling();
@@ -747,14 +747,14 @@ void _WriteHeapProfile(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'dataDir'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 
@@ -777,14 +777,14 @@ void _Notify(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'token'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 
@@ -807,24 +807,24 @@ void _NotifyUsers(const FunctionCallbackInfo<Value>& args) {
 	}
 
 	// Check the argument types
-	
-	if (!args[0]->IsString()) { 
+
+	if (!args[0]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'message'")));
 		return;
 	}
-	if (!args[1]->IsString()) { 
+	if (!args[1]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'payloadJSON'")));
 		return;
 	}
-	if (!args[2]->IsString()) { 
+	if (!args[2]->IsString()) {
 		isolate->ThrowException(Exception::TypeError(
 			String::NewFromUtf8(isolate, "Wrong argument type for 'tokensArray'")));
 		return;
 	}
 
-	
+
 	String::Utf8Value arg0Obj(args[0]->ToString());
 	char *arg0 = *arg0Obj;
 	String::Utf8Value arg1Obj(args[1]->ToString());
@@ -866,10 +866,10 @@ void init(Local<Object> exports) {
 	NODE_SET_METHOD(exports, "WriteHeapProfile", _WriteHeapProfile);
 	NODE_SET_METHOD(exports, "Notify", _Notify);
 	NODE_SET_METHOD(exports, "NotifyUsers", _NotifyUsers);
-	
+
 }
 
-NODE_MODULE(NODE_GYP_MODULE_NAME, init)
+NODE_MODULE(status_nodejs_addon, init)
 
 }  // namespace status
 

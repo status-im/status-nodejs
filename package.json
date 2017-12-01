@@ -1,26 +1,43 @@
 {
   "name": "status-nodejs",
-  "version": "1.0.0",
-  "description": "This package provides wrappers to [status-go](https://github.com/status-im/status-go) exported methods.",
+  "version": "0.1.0",
+  "description": "This package provides wrappers to status-go bindings.",
   "main": "index.js",
   "gypfile": true,
   "dependencies": {},
   "devDependencies": {
-    "chai": "^4.1.2",
-    "mocha": "^4.0.1",
-    "node-gyp": "^3.6.2",
+    "chai": "4.1.2",
+    "mocha": "4.0.1",
+    "node-gyp": "3.6.2",
+    "node-pre-gyp": "0.6.39",
+    "node-pre-gyp-github": "1.3.1",
     "tmp": "0.0.33"
   },
+  "bundledDependencies": ["node-pre-gyp"],
   "scripts": {
-    "test": "mocha --timeout 5000 --full-trace ./test",
-    "rebuild": "node-gyp rebuild"
+    "install": "node-pre-gyp install --fallback-to-build",
+    "build": "node-pre-gyp build",
+    "package": "node-pre-gyp package",
+    "publish": "node-pre-gyp-github publish",
+    "publish:release": "node-pre-gyp-github publish --release",
+    "test": "mocha --timeout 5000 --full-trace ./test"
+  },
+  "binary": {
+    "module_name": "status_nodejs_addon",
+    "module_path": "./lib/binding/",
+    "host": "https://github.com/status-im/status-nodejs/releases/download/",
+    "remote_path": "{version}"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/status-im/status-nodejs.git"
   },
-  "author": "Status",
-  "license": "ISC",
+  "contributors": [
+    "Adam Babik <adam@status.im>",
+    "Andrey Shovkoplyas",
+    "Ivan Daniluk"
+  ],
+  "license": "MPL-2.0",
   "bugs": {
     "url": "https://github.com/status-im/status-nodejs/issues"
   },
