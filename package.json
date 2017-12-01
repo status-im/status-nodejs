@@ -16,6 +16,7 @@
   "bundledDependencies": ["node-pre-gyp"],
   "scripts": {
     "install": "node-pre-gyp install --fallback-to-build",
+    "configure": "node-pre-gyp configure",
     "build": "node-pre-gyp build",
     "package": "node-pre-gyp package",
     "publish": "node-pre-gyp-github publish",
