@@ -28,7 +28,9 @@ using v8::Value;
 
 var footerTemplate = template.Must(template.New("footer").Parse(`
 void init(Local<Object> exports) {
-	{{range $index, $func := .}}NODE_SET_METHOD(exports, "{{.Name}}", _{{.Name}});{{end}}
+	{{- range $index, $func := .}}
+	NODE_SET_METHOD(exports, "{{.Name}}", _{{.Name}});
+	{{- end}}
 }
 
 NODE_MODULE(status_nodejs_addon, init)

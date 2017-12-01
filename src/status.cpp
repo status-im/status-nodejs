@@ -878,7 +878,32 @@ void _NotifyUsers(const FunctionCallbackInfo<Value>& args) {
 }
 
 void init(Local<Object> exports) {
-	NODE_SET_METHOD(exports, "GenerateConfig", _GenerateConfig);NODE_SET_METHOD(exports, "StartNode", _StartNode);NODE_SET_METHOD(exports, "StopNode", _StopNode);NODE_SET_METHOD(exports, "ValidateNodeConfig", _ValidateNodeConfig);NODE_SET_METHOD(exports, "ResetChainData", _ResetChainData);NODE_SET_METHOD(exports, "CallRPC", _CallRPC);NODE_SET_METHOD(exports, "CreateAccount", _CreateAccount);NODE_SET_METHOD(exports, "CreateChildAccount", _CreateChildAccount);NODE_SET_METHOD(exports, "RecoverAccount", _RecoverAccount);NODE_SET_METHOD(exports, "VerifyAccountPassword", _VerifyAccountPassword);NODE_SET_METHOD(exports, "Login", _Login);NODE_SET_METHOD(exports, "Logout", _Logout);NODE_SET_METHOD(exports, "CompleteTransaction", _CompleteTransaction);NODE_SET_METHOD(exports, "CompleteTransactions", _CompleteTransactions);NODE_SET_METHOD(exports, "DiscardTransaction", _DiscardTransaction);NODE_SET_METHOD(exports, "DiscardTransactions", _DiscardTransactions);NODE_SET_METHOD(exports, "InitJail", _InitJail);NODE_SET_METHOD(exports, "Parse", _Parse);NODE_SET_METHOD(exports, "CreateAndInitCell", _CreateAndInitCell);NODE_SET_METHOD(exports, "ExecuteJS", _ExecuteJS);NODE_SET_METHOD(exports, "Call", _Call);NODE_SET_METHOD(exports, "StartCPUProfile", _StartCPUProfile);NODE_SET_METHOD(exports, "StopCPUProfiling", _StopCPUProfiling);NODE_SET_METHOD(exports, "WriteHeapProfile", _WriteHeapProfile);NODE_SET_METHOD(exports, "Notify", _Notify);NODE_SET_METHOD(exports, "NotifyUsers", _NotifyUsers);
+	NODE_SET_METHOD(exports, "GenerateConfig", _GenerateConfig);
+	NODE_SET_METHOD(exports, "StartNode", _StartNode);
+	NODE_SET_METHOD(exports, "StopNode", _StopNode);
+	NODE_SET_METHOD(exports, "ValidateNodeConfig", _ValidateNodeConfig);
+	NODE_SET_METHOD(exports, "ResetChainData", _ResetChainData);
+	NODE_SET_METHOD(exports, "CallRPC", _CallRPC);
+	NODE_SET_METHOD(exports, "CreateAccount", _CreateAccount);
+	NODE_SET_METHOD(exports, "CreateChildAccount", _CreateChildAccount);
+	NODE_SET_METHOD(exports, "RecoverAccount", _RecoverAccount);
+	NODE_SET_METHOD(exports, "VerifyAccountPassword", _VerifyAccountPassword);
+	NODE_SET_METHOD(exports, "Login", _Login);
+	NODE_SET_METHOD(exports, "Logout", _Logout);
+	NODE_SET_METHOD(exports, "CompleteTransaction", _CompleteTransaction);
+	NODE_SET_METHOD(exports, "CompleteTransactions", _CompleteTransactions);
+	NODE_SET_METHOD(exports, "DiscardTransaction", _DiscardTransaction);
+	NODE_SET_METHOD(exports, "DiscardTransactions", _DiscardTransactions);
+	NODE_SET_METHOD(exports, "InitJail", _InitJail);
+	NODE_SET_METHOD(exports, "Parse", _Parse);
+	NODE_SET_METHOD(exports, "CreateAndInitCell", _CreateAndInitCell);
+	NODE_SET_METHOD(exports, "ExecuteJS", _ExecuteJS);
+	NODE_SET_METHOD(exports, "Call", _Call);
+	NODE_SET_METHOD(exports, "StartCPUProfile", _StartCPUProfile);
+	NODE_SET_METHOD(exports, "StopCPUProfiling", _StopCPUProfiling);
+	NODE_SET_METHOD(exports, "WriteHeapProfile", _WriteHeapProfile);
+	NODE_SET_METHOD(exports, "Notify", _Notify);
+	NODE_SET_METHOD(exports, "NotifyUsers", _NotifyUsers);
 }
 
 NODE_MODULE(status_nodejs_addon, init)

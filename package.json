@@ -33,9 +33,8 @@
     "url": "git+https://github.com/status-im/status-nodejs.git"
   },
   "contributors": [
-    "Adam Babik <adam@status.im>",
-    "Andrey Shovkoplyas",
-    "Ivan Daniluk"
+    "Adam Babik",
+    "Andrey Shovkoplyas"
   ],
   "license": "MPL-2.0",
   "bugs": {
