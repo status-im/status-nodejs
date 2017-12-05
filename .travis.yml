@@ -10,10 +10,18 @@ matrix:
 language: node_js
 
 node_js:
-  - "7.9.0"  # Current stable Electron version
+  - "8.2.1"  # Current stable Electron version
+  - "8.9"    # LTS
+  - "9"      # Current
 
 install:
   - ./.travis/install.sh
   - npm install
   - npm run configure
   - npm run build
+
+deploy:
+  provider: script
+  script: ./.travis/deploy.sh
+  on:
+    tags: true
