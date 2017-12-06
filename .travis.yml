@@ -8,8 +8,13 @@ matrix:
     - os: linux
       sudo: required
       node_js: "8.2.1"
+    - os: linux
+      sudo: required
+      node_js: "8"
     - os: osx
       node_js: "8.2.1"
+    - os: osx
+      node_js: "8"
 
 install:
   - ./.travis/install.sh
