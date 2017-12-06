@@ -1,19 +1,29 @@
 notifications:
   email: false
 
+language: node_js
+
 matrix:
   include:
     - os: linux
       sudo: required
+      node_js: "8.2.1"
+    - os: linux
+      sudo: required
+      node_js: "8"
     - os: osx
-
-language: node_js
-
-node_js:
-  - "7.9.0"  # Current stable Electron version
+      node_js: "8.2.1"
+    - os: osx
+      node_js: "8"
 
 install:
   - ./.travis/install.sh
   - npm install
   - npm run configure
   - npm run build
+
+deploy:
+  provider: script
+  script: ./.travis/deploy.sh
+  on:
+    tags: true
