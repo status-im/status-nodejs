@@ -23,6 +23,7 @@ install:
   - npm run build
 
 deploy:
+  skip_cleanup: true
   provider: script
   script: ./.travis/deploy.sh
   on:
