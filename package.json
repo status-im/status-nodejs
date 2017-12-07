@@ -21,6 +21,7 @@
     "install": "node-pre-gyp install --fallback-to-build",
     "configure": "node-pre-gyp configure",
     "build": "node-pre-gyp build",
+    "build:electron": "HOME=~/.electron-gyp node-gyp rebuild --target=1.8.2-beta.3 --arch=x64 --dist-url=https://atom.io/download/electron",
     "package": "node-pre-gyp package",
     "publish": "node-pre-gyp-github publish",
     "publish:release": "node-pre-gyp-github publish --release",

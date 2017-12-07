@@ -1,4 +1,8 @@
 {
+  "variables": {
+    "module_name%": "status_nodejs_addon",
+    "module_path%": "./lib/binding/"
+  },
   "targets": [{
     "target_name": "<(module_name)",
     "sources": [
