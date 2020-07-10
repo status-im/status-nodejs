@@ -281,7 +281,6 @@ function advertise() {
   sendMessage(advertiseChat, "hello, I am your friendly echo bot!");
 }
 
-setInterval(advertise, 3000);
 
 /*
 { id: '0x2ae6ab086c67d21688be329b853fbd62dc62b8e63c2587e1ab02fe8921556ee5',
@@ -324,14 +323,17 @@ function handleMessages(response) {
   }
 
 }
-setInterval(function() {
-handleMessages(JSON.parse(status.CallPrivateRPC(JSON.stringify(
-  {"method": "wakuext_retrieveAll",
-   "params": []}))))
-}, 3000);
 
 setTimeout(function() {
   init()
+
+  setInterval(advertise, 3000);
+  setInterval(function() {
+    handleMessages(JSON.parse(status.CallPrivateRPC(JSON.stringify(
+      {"method": "wakuext_retrieveAll",
+        "params": []}))))
+  }, 3000);
+
 }, 3000)
 
 function handleMessage(message) {
