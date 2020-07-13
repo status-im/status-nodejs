@@ -1,9 +1,5 @@
 const status = require(".")
 
-status.OpenAccounts("/tmp")
-status.InitKeystore("/tmp")
-console.log("INT")
-
 const PATH_WALLET_ROOT = "m/44'/60'/0'/0"
 const PATH_EIP_1581 = "m/43'/60'/1581'"
 const PATH_DEFAULT_WALLET = PATH_WALLET_ROOT + "/0"
@@ -184,6 +180,49 @@ let multiAccountConfig = {
   }
 
 
+
+
+function init() {
+  status.OpenAccounts("/tmp")
+  status.InitKeystore("/tmp")
+  var derivedAccount = JSON.parse(status.MultiAccountGenerateAndDeriveAddresses(JSON.stringify(multiAccountConfig)))[0]
+  let multiAccount = {
+    "accountID": derivedAccount.id,
+    "paths": [PATH_WALLET_ROOT, PATH_EIP_1581, PATH_WHISPER, PATH_DEFAULT_WALLET],
+    "password": testPassword
+  }
+  status.MultiAccountStoreDerivedAccounts(JSON.stringify(multiAccount))
+  var settings = getAccountSettings(derivedAccount)
+  var accountData = {
+    name: "test name",
+    address: derivedAccount.address,
+    "key-uid": derivedAccount.keyUid,
+  }
+
+  let subaccountData = [
+    {
+      "public-key": derivedAccount.derived[PATH_DEFAULT_WALLET].publicKey,
+      "address": derivedAccount.derived[PATH_DEFAULT_WALLET].address,
+      "color": "#4360df",
+      "wallet": true,
+      "path": PATH_DEFAULT_WALLET,
+      "name": "Status account"
+    },
+    {
+      "public-key": derivedAccount.derived[PATH_WHISPER].publicKey,
+      "address": derivedAccount.derived[PATH_WHISPER].address,
+      "name": "",
+      "photo-path": "",
+      "path": PATH_WHISPER,
+      "chat": true
+    }
+  ]
+  status.SaveAccountAndLogin(JSON.stringify(accountData), testPassword, JSON.stringify(settings), JSON.stringify(NODE_CONFIG), JSON.stringify(subaccountData))
+  console.log("Generated account", derivedAccount.derived[PATH_WHISPER].publicKey)
+  console.log("Starting messenger");
+  setTimeout(initMessenger, 3000);
+}
+
 function getAccountSettings(account) {
   return {
     "key-uid": account.keyUid,
@@ -209,41 +248,6 @@ function getAccountSettings(account) {
     "installation-id": installationId
   }
 }
-var derivedAccount = JSON.parse(status.MultiAccountGenerateAndDeriveAddresses(JSON.stringify(multiAccountConfig)))[0]
-  let multiAccount = {
-    "accountID": derivedAccount.id,
-    "paths": [PATH_WALLET_ROOT, PATH_EIP_1581, PATH_WHISPER, PATH_DEFAULT_WALLET],
-    "password": testPassword
-  }
-
-console.log(status.MultiAccountStoreDerivedAccounts(JSON.stringify(multiAccount)))
-var settings = getAccountSettings(derivedAccount)
-var accountData = {
-  name: "test name",
-  address: derivedAccount.address,
-  "key-uid": derivedAccount.keyUid,
-}
-
-  let subaccountData = [
-    {
-      "public-key": derivedAccount.derived[PATH_DEFAULT_WALLET].publicKey,
-      "address": derivedAccount.derived[PATH_DEFAULT_WALLET].address,
-      "color": "#4360df",
-      "wallet": true,
-      "path": PATH_DEFAULT_WALLET,
-      "name": "Status account"
-    },
-    {
-      "public-key": derivedAccount.derived[PATH_WHISPER].publicKey,
-      "address": derivedAccount.derived[PATH_WHISPER].address,
-      "name": "",
-      "photo-path": "",
-      "path": PATH_WHISPER,
-      "chat": true
-    }
-  ]
-console.log(status.SaveAccountAndLogin(JSON.stringify(accountData), testPassword, JSON.stringify(settings), JSON.stringify(NODE_CONFIG), JSON.stringify(subaccountData)))
-
 var advertiseChat = "status-test-echo-bot";
 
 function saveChat(chatId, chatType) {
@@ -262,7 +266,7 @@ status.CallPrivateRPC(JSON.stringify(
    "params": [[]]}))
 
 }
-function init() {
+function initMessenger() {
 console.log(status.CallPrivateRPC(JSON.stringify(
   {"method": "wakuext_startMessenger",
    "params": [true]})))
@@ -270,42 +274,17 @@ console.log(status.CallPrivateRPC(JSON.stringify(
 
 }
 
-
 function sendMessage(chatId, text) {
   return status.CallPrivateRPC(JSON.stringify(
     {"method": "wakuext_sendChatMessage",
       "params": [{"contentType": 1, "chatId": chatId, "text": text}]}))
 
 }
+
 function advertise() {
   sendMessage(advertiseChat, "hello, I am your friendly echo bot!");
 }
 
-
-/*
-{ id: '0x2ae6ab086c67d21688be329b853fbd62dc62b8e63c2587e1ab02fe8921556ee5',
-  whisperTimestamp: 1594282484000,
-  from: '0x04f882637798da4696ab989e3790b31e8eaf59ac874e52205d6f4c03ee3228cf14086a9ab7af62093d591dd0c9d2e33578235372524cf0cd38320cb0054d3be62e',
-  alias: 'Potable Sparkling Xantus',
-  identicon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAkElEQVR4nOzWwQmEUAwG4V2xF0uwMcuwMUuwGr2LghICw898x2V5MgRChl8IQ2gMoTGExhCamJCx6+F9W4+736d5+Xd8L2YihtAYQlPeIE/b6avqNouZiCE0htC8vrW6b6fq+zETMYTGEBpvLRpDaAyhabu1uv9/FTMRQ2gMUZOYiRhCYwiNITSG0JwBAAD//wjjIGek6HOdAAAAAElFTkSuQmCC',
-  seen: false,
-  quotedMessage: null,
-  rtl: false,
-  parsedText: [ { type: 'paragraph', children: [Array] } ],
-  lineCount: 0,
-  text: 'yh',
-  chatId: '0x041a6a0908a5d6ea1c35f6f73ef800c7f0bf792245586e3d3fac4705d18f1a22201150c40930318a6683eff728e8ebb9512ff49ec9d6da26b19caef432af7a86f3',
-  localChatId: '0x04f882637798da4696ab989e3790b31e8eaf59ac874e52205d6f4c03ee3228cf14086a9ab7af62093d591dd0c9d2e33578235372524cf0cd38320cb0054d3be62e',
-  clock: 1594282482521,
-  replace: '',
-  responseTo: '',
-  ensName: '',
-  sticker: null,
-  commandParameters: null,
-  timestamp: 1594282482521,
-  contentType: 1,
-  messageType: 1 }
-  */
 
 var messageIds = {};
 var chatIds = {};
@@ -324,17 +303,18 @@ function handleMessages(response) {
 
 }
 
-setTimeout(function() {
-  init()
+function startEchoServer() {
+  setTimeout(function() {
 
-  setInterval(advertise, 3000);
-  setInterval(function() {
-    handleMessages(JSON.parse(status.CallPrivateRPC(JSON.stringify(
-      {"method": "wakuext_retrieveAll",
-        "params": []}))))
-  }, 3000);
+    setInterval(advertise, 3000);
+    setInterval(function() {
+      handleMessages(JSON.parse(status.CallPrivateRPC(JSON.stringify(
+        {"method": "wakuext_retrieveAll",
+          "params": []}))))
+    }, 3000);
 
-}, 3000)
+  }, 3000)
+}
 
 function handleMessage(message) {
   var theirPk = message.localChatId;
@@ -349,4 +329,13 @@ function handleMessage(message) {
   // Send a message
   sendMessage(theirPk, text);
 }
+
+function callRPC(method, params) {
+  return JSON.parse(status.CallPrivateRPC(JSON.stringify(
+  {"method": method,
+   "params": params})))
+}
+
+module.exports = {init, callRPC}
+
 
