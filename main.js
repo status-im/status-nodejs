@@ -4,7 +4,7 @@ const PATH_WALLET_ROOT = "m/44'/60'/0'/0"
 const PATH_EIP_1581 = "m/43'/60'/1581'"
 const PATH_DEFAULT_WALLET = PATH_WALLET_ROOT + "/0"
 const PATH_WHISPER = PATH_EIP_1581 + "/0'/0"
-const testPassword = "testPassword"
+const testPassword = ""
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -144,7 +144,7 @@ var NODE_CONFIG = {
     }
   },
   "ShhextConfig": {
-    "BackupDisabledDataDir": "./",
+    "BackupDisabledDataDir": "./tmp",
     "DataSyncEnabled": true,
     "InstallationID": installationId,
     "MailServerConfirmations": true,
@@ -181,46 +181,64 @@ let multiAccountConfig = {
 
 
 
+function login(account) {
+console.log("logging in")
+  console.log(status.Login(JSON.stringify(account), testPassword))
 
-function init() {
-  status.OpenAccounts("/tmp")
-  status.InitKeystore("/tmp")
-  var derivedAccount = JSON.parse(status.MultiAccountGenerateAndDeriveAddresses(JSON.stringify(multiAccountConfig)))[0]
-  let multiAccount = {
-    "accountID": derivedAccount.id,
-    "paths": [PATH_WALLET_ROOT, PATH_EIP_1581, PATH_WHISPER, PATH_DEFAULT_WALLET],
-    "password": testPassword
-  }
-  status.MultiAccountStoreDerivedAccounts(JSON.stringify(multiAccount))
-  var settings = getAccountSettings(derivedAccount)
-  var accountData = {
-    name: "test name",
-    address: derivedAccount.address,
-    "key-uid": derivedAccount.keyUid,
-  }
+}
+function createAccount() {
+    console.log("creating account")
+    var derivedAccount = JSON.parse(status.MultiAccountGenerateAndDeriveAddresses(JSON.stringify(multiAccountConfig)))[0]
+    let multiAccount = {
+      "accountID": derivedAccount.id,
+        "paths": [PATH_WALLET_ROOT, PATH_EIP_1581, PATH_WHISPER, PATH_DEFAULT_WALLET],
+        "password": testPassword
+    }
+status.MultiAccountStoreDerivedAccounts(JSON.stringify(multiAccount))
+    var settings = getAccountSettings(derivedAccount)
+    var accountData = {
+      name: "test name",
+        address: derivedAccount.address,
+        "key-uid": derivedAccount.keyUid,
+    }
 
-  let subaccountData = [
-    {
-      "public-key": derivedAccount.derived[PATH_DEFAULT_WALLET].publicKey,
+let subaccountData = [
+  {
+    "public-key": derivedAccount.derived[PATH_DEFAULT_WALLET].publicKey,
       "address": derivedAccount.derived[PATH_DEFAULT_WALLET].address,
       "color": "#4360df",
       "wallet": true,
       "path": PATH_DEFAULT_WALLET,
       "name": "Status account"
-    },
-    {
-      "public-key": derivedAccount.derived[PATH_WHISPER].publicKey,
-      "address": derivedAccount.derived[PATH_WHISPER].address,
-      "name": "",
-      "photo-path": "",
-      "path": PATH_WHISPER,
-      "chat": true
-    }
-  ]
-  status.SaveAccountAndLogin(JSON.stringify(accountData), testPassword, JSON.stringify(settings), JSON.stringify(NODE_CONFIG), JSON.stringify(subaccountData))
-  console.log("Generated account", derivedAccount.derived[PATH_WHISPER].publicKey)
-  console.log("Starting messenger");
-  setTimeout(initMessenger, 3000);
+  },
+  {
+    "public-key": derivedAccount.derived[PATH_WHISPER].publicKey,
+    "address": derivedAccount.derived[PATH_WHISPER].address,
+    "name": "",
+    "photo-path": "",
+    "path": PATH_WHISPER,
+    "chat": true
+  }
+]
+status.SaveAccountAndLogin(JSON.stringify(accountData), testPassword, JSON.stringify(settings), JSON.stringify(NODE_CONFIG), JSON.stringify(subaccountData))
+console.log("Generated account", derivedAccount.derived[PATH_WHISPER].publicKey)
+console.log("Starting messenger");
+
+}
+
+function init(callback) {
+  var existingAccounts = JSON.parse(status.OpenAccounts("/tmp"))
+  console.log(existingAccounts)
+  status.InitKeystore("/tmp")
+  if (!existingAccounts.length) {
+createAccount()
+  } else {
+login(existingAccounts[0])
+  }
+setTimeout(function() {
+  initMessenger()
+  callback()
+}, 15000);
 }
 
 function getAccountSettings(account) {
@@ -339,3 +357,4 @@ function callRPC(method, params) {
 module.exports = {init, callRPC}
 
 
+init(startEchoServer)
