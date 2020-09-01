@@ -1,10 +1,20 @@
 const status = require(".")
+const process = require("process")
 
 const PATH_WALLET_ROOT = "m/44'/60'/0'/0"
 const PATH_EIP_1581 = "m/43'/60'/1581'"
 const PATH_DEFAULT_WALLET = PATH_WALLET_ROOT + "/0"
 const PATH_WHISPER = PATH_EIP_1581 + "/0'/0"
 const testPassword = ""
+const directory = process.cwd()
+const tmpDir =  directory + "/tmp"
+console.log(tmpDir)
+
+const fs = require('fs');
+
+if (!fs.existsSync(tmpDir)){
+    fs.mkdirSync(tmpDir);
+}
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -123,7 +133,6 @@ var NODE_CONFIG = {
   "DataDir": "./ethereum/mainnet",
   "EnableNTPSync": true,
   "KeyStoreDir": "./keystore",
-  "ListenAddr": ":30305",
   "LogEnabled": true,
   "LogFile": "geth.log",
   "LogLevel": "INFO",
@@ -144,7 +153,7 @@ var NODE_CONFIG = {
     }
   },
   "ShhextConfig": {
-    "BackupDisabledDataDir": "./tmp",
+    "BackupDisabledDataDir": tmpDir,
     "DataSyncEnabled": true,
     "InstallationID": installationId,
     "MailServerConfirmations": true,
@@ -227,9 +236,9 @@ console.log("Starting messenger");
 }
 
 function init(callback) {
-  var existingAccounts = JSON.parse(status.OpenAccounts("/tmp"))
+  var existingAccounts = JSON.parse(status.OpenAccounts(tmpDir))
   console.log(existingAccounts)
-  status.InitKeystore("/tmp")
+  status.InitKeystore(tmpDir)
   if (!existingAccounts.length) {
 createAccount()
   } else {
