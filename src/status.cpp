@@ -702,99 +702,6 @@ void _MultiformatSerializePublicKey(const FunctionCallbackInfo<Value>& args) {
 
 }
 
-void _CreateAccount(const FunctionCallbackInfo<Value>& args) {
-	Isolate* isolate = args.GetIsolate();
-
-	if (args.Length() != 1) {
-		// Throw an Error that is passed back to JavaScript
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong number of arguments for CreateAccount")));
-		return;
-	}
-
-	// Check the argument types
-
-	if (!args[0]->IsString()) {
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong argument type for 'password'")));
-		return;
-	}
-
-
-	String::Utf8Value arg0Obj(args[0]->ToString());
-	char *arg0 = *arg0Obj;
-
-	// Call exported Go function, which returns a C string
-	char *c = CreateAccount(arg0);
-
-	Local<String> ret = String::NewFromUtf8(isolate, c);
-	args.GetReturnValue().Set(ret);
-	delete c;
-
-
-}
-
-void _RecoverAccount(const FunctionCallbackInfo<Value>& args) {
-	Isolate* isolate = args.GetIsolate();
-
-	if (args.Length() != 2) {
-		// Throw an Error that is passed back to JavaScript
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong number of arguments for RecoverAccount")));
-		return;
-	}
-
-	// Check the argument types
-
-	if (!args[0]->IsString()) {
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong argument type for 'password'")));
-		return;
-	}
-	if (!args[1]->IsString()) {
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong argument type for 'mnemonic'")));
-		return;
-	}
-
-
-	String::Utf8Value arg0Obj(args[0]->ToString());
-	char *arg0 = *arg0Obj;
-	String::Utf8Value arg1Obj(args[1]->ToString());
-	char *arg1 = *arg1Obj;
-
-	// Call exported Go function, which returns a C string
-	char *c = RecoverAccount(arg0, arg1);
-
-	Local<String> ret = String::NewFromUtf8(isolate, c);
-	args.GetReturnValue().Set(ret);
-	delete c;
-
-
-}
-
-void _RemoveOnboarding(const FunctionCallbackInfo<Value>& args) {
-	Isolate* isolate = args.GetIsolate();
-
-	if (args.Length() != 0) {
-		// Throw an Error that is passed back to JavaScript
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong number of arguments for RemoveOnboarding")));
-		return;
-	}
-
-	// Check the argument types
-
-
-
-
-	// Call exported Go function, which returns a C string
-	RemoveOnboarding();
-
-
-
-
-}
 
 void _SaveAccountAndLoginWithKeycard(const FunctionCallbackInfo<Value>& args) {
 	Isolate* isolate = args.GetIsolate();
@@ -940,43 +847,6 @@ void _MultiformatDeserializePublicKey(const FunctionCallbackInfo<Value>& args) {
 
 	// Call exported Go function, which returns a C string
 	char *c = MultiformatDeserializePublicKey(arg0, arg1);
-
-	Local<String> ret = String::NewFromUtf8(isolate, c);
-	args.GetReturnValue().Set(ret);
-	delete c;
-
-
-}
-
-void _StartOnboarding(const FunctionCallbackInfo<Value>& args) {
-	Isolate* isolate = args.GetIsolate();
-
-	if (args.Length() != 2) {
-		// Throw an Error that is passed back to JavaScript
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong number of arguments for StartOnboarding")));
-		return;
-	}
-
-	// Check the argument types
-
-	if (!args[0]->IsNumber()) {
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong argument type for 'n'")));
-		return;
-	}
-	if (!args[1]->IsNumber()) {
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong argument type for 'mnemonicPhraseLength'")));
-		return;
-	}
-
-
-	int arg0 = args[0]->Int32Value();
-	int arg1 = args[1]->Int32Value();
-
-	// Call exported Go function, which returns a C string
-	char *c = StartOnboarding(arg0, arg1);
 
 	Local<String> ret = String::NewFromUtf8(isolate, c);
 	args.GetReturnValue().Set(ret);
@@ -1438,45 +1308,6 @@ void _CallRPC(const FunctionCallbackInfo<Value>& args) {
 
 }
 
-void _ImportOnboardingAccount(const FunctionCallbackInfo<Value>& args) {
-	Isolate* isolate = args.GetIsolate();
-
-	if (args.Length() != 2) {
-		// Throw an Error that is passed back to JavaScript
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong number of arguments for ImportOnboardingAccount")));
-		return;
-	}
-
-	// Check the argument types
-
-	if (!args[0]->IsString()) {
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong argument type for 'id'")));
-		return;
-	}
-	if (!args[1]->IsString()) {
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong argument type for 'password'")));
-		return;
-	}
-
-
-	String::Utf8Value arg0Obj(args[0]->ToString());
-	char *arg0 = *arg0Obj;
-	String::Utf8Value arg1Obj(args[1]->ToString());
-	char *arg1 = *arg1Obj;
-
-	// Call exported Go function, which returns a C string
-	char *c = ImportOnboardingAccount(arg0, arg1);
-
-	Local<String> ret = String::NewFromUtf8(isolate, c);
-	args.GetReturnValue().Set(ret);
-	delete c;
-
-
-}
-
 void _SignMessage(const FunctionCallbackInfo<Value>& args) {
 	Isolate* isolate = args.GetIsolate();
 
@@ -1788,30 +1619,6 @@ void _ConnectionChange(const FunctionCallbackInfo<Value>& args) {
 
 }
 
-void _ExportNodeLogs(const FunctionCallbackInfo<Value>& args) {
-	Isolate* isolate = args.GetIsolate();
-
-	if (args.Length() != 0) {
-		// Throw an Error that is passed back to JavaScript
-		isolate->ThrowException(Exception::TypeError(
-			String::NewFromUtf8(isolate, "Wrong number of arguments for ExportNodeLogs")));
-		return;
-	}
-
-	// Check the argument types
-
-
-
-
-	// Call exported Go function, which returns a C string
-	char *c = ExportNodeLogs();
-
-	Local<String> ret = String::NewFromUtf8(isolate, c);
-	args.GetReturnValue().Set(ret);
-	delete c;
-
-
-}
 
 void init(Local<Object> exports) {
 	NODE_SET_METHOD(exports, "MultiAccountGenerateAndDeriveAddresses", _MultiAccountGenerateAndDeriveAddresses);
@@ -1835,13 +1642,9 @@ void init(Local<Object> exports) {
 	NODE_SET_METHOD(exports, "GenerateAlias", _GenerateAlias);
 	NODE_SET_METHOD(exports, "ValidateMnemonic", _ValidateMnemonic);
 	NODE_SET_METHOD(exports, "MultiformatSerializePublicKey", _MultiformatSerializePublicKey);
-	NODE_SET_METHOD(exports, "CreateAccount", _CreateAccount);
-	NODE_SET_METHOD(exports, "RecoverAccount", _RecoverAccount);
-	NODE_SET_METHOD(exports, "RemoveOnboarding", _RemoveOnboarding);
 	NODE_SET_METHOD(exports, "SaveAccountAndLoginWithKeycard", _SaveAccountAndLoginWithKeycard);
 	NODE_SET_METHOD(exports, "LoginWithKeycard", _LoginWithKeycard);
 	NODE_SET_METHOD(exports, "MultiformatDeserializePublicKey", _MultiformatDeserializePublicKey);
-	NODE_SET_METHOD(exports, "StartOnboarding", _StartOnboarding);
 	NODE_SET_METHOD(exports, "Login", _Login);
 	NODE_SET_METHOD(exports, "StartCPUProfile", _StartCPUProfile);
 	NODE_SET_METHOD(exports, "OpenAccounts", _OpenAccounts);
@@ -1854,7 +1657,6 @@ void init(Local<Object> exports) {
 	NODE_SET_METHOD(exports, "SignHash", _SignHash);
 	NODE_SET_METHOD(exports, "SignGroupMembership", _SignGroupMembership);
 	NODE_SET_METHOD(exports, "CallRPC", _CallRPC);
-	NODE_SET_METHOD(exports, "ImportOnboardingAccount", _ImportOnboardingAccount);
 	NODE_SET_METHOD(exports, "SignMessage", _SignMessage);
 	NODE_SET_METHOD(exports, "SignTypedData", _SignTypedData);
 	NODE_SET_METHOD(exports, "SendTransaction", _SendTransaction);
@@ -1865,7 +1667,6 @@ void init(Local<Object> exports) {
 	NODE_SET_METHOD(exports, "Recover", _Recover);
 	NODE_SET_METHOD(exports, "HashTransaction", _HashTransaction);
 	NODE_SET_METHOD(exports, "ConnectionChange", _ConnectionChange);
-	NODE_SET_METHOD(exports, "ExportNodeLogs", _ExportNodeLogs);
 
 }
 
